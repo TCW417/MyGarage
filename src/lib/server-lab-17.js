@@ -12,7 +12,6 @@ import loggerMiddleware from '../lib/middleware/logger-middleware';
 // our routes
 import authRouter from '../router/auth-router';
 import profileRouter from '../router/profile-router';
-import imageRouter from '../router/image-router';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,21 +27,21 @@ app.use(express.json());
 app.use(loggerMiddleware);
 app.use(authRouter);
 app.use(profileRouter);
-app.use(imageRouter);
+
+
 // catch all
 app.all('*', (request, response) => {
-  logger.log(logger.INFO, 'Returning a 404 from the catch/all route');
+  console.log('Returning a 404 from the catch/all route');
   return response.sendStatus(404).send('Route Not Registered');
 });
 
 app.use(errorMiddleWare);
 
-
 const startServer = () => {
   return mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
       server = app.listen(PORT, () => {
-        logger.log(logger.INFO, `Server up on por ${PORT}`);
+        console.log('Server up:', PORT);
       });
     })
     .catch((err) => {
