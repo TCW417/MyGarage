@@ -21,6 +21,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 let server = null;
 
+// cors options needed for use with front-end lab 36-40
 const corsOptions = { 
   origin: 'http://localhost:8080',
   credentials: true,
